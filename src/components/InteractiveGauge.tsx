@@ -37,10 +37,32 @@ export const InteractiveGauge: React.FC = () => {
         <div className="absolute inset-0 bg-black/40"></div>
       </div>
 
+      {/* SVG Overlay on Background Wrench */}
+      <div className="absolute inset-0 z-5 flex items-center justify-center">
+        <div className="relative">
+          {/* Socket SVG with dynamic tint - positioned over the wrench in background */}
+          <div 
+            className="transition-all duration-500"
+            style={{
+              filter: `hue-rotate(${gaugeValue * 1.2}deg) saturate(${1 + (gaugeValue / 100)}) brightness(${1 + (gaugeValue / 200)})`
+            }}
+          >
+            <img 
+              src={socketOverlay} 
+              alt="Socket tool overlay"
+              className="w-32 h-auto drop-shadow-2xl"
+              style={{
+                filter: `drop-shadow(0 0 15px ${currentColor}80)`
+              }}
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Content */}
-      <div className="relative z-10 min-h-screen flex items-center justify-between px-8 py-12">
+      <div className="relative z-10 min-h-screen flex items-center justify-end px-8 py-12">
         
-        {/* Left side - Gauge */}
+        {/* Right side - Gauge */}
         <div className="flex flex-col items-center space-y-6">
           <h1 className="text-3xl font-bold text-white mb-4">Torque Monitor</h1>
           
@@ -60,7 +82,7 @@ export const InteractiveGauge: React.FC = () => {
             </div>
             
             {/* Gauge Labels */}
-            <div className="absolute -right-12 top-0 h-full flex flex-col justify-between text-white/80 text-sm">
+            <div className="absolute -left-12 top-0 h-full flex flex-col justify-between text-white/80 text-sm">
               <span>100%</span>
               <span>75%</span>
               <span>50%</span>
@@ -96,28 +118,6 @@ export const InteractiveGauge: React.FC = () => {
             >
               Reset
             </Button>
-          </div>
-        </div>
-
-        {/* Right side - Socket SVG Overlay */}
-        <div className="flex-1 flex items-center justify-center">
-          <div className="relative">
-            {/* Socket SVG with dynamic tint */}
-            <div 
-              className="transition-all duration-500"
-              style={{
-                filter: `hue-rotate(${gaugeValue * 1.2}deg) saturate(${1 + (gaugeValue / 100)}) brightness(${1 + (gaugeValue / 200)})`
-              }}
-            >
-              <img 
-                src={socketOverlay} 
-                alt="Socket tool overlay"
-                className="w-24 h-auto drop-shadow-2xl"
-                style={{
-                  filter: `drop-shadow(0 0 10px ${currentColor}60)`
-                }}
-              />
-            </div>
           </div>
         </div>
       </div>
